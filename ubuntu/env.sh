@@ -1,4 +1,3 @@
 #!/bin/bash
 MIRACL_CONTAINER=${MIRACL_CONTAINER:-miracl-sso-ubuntu}
-MIRACL_RUN_OPTS=${MIRACL_RUN_OPTS:-"-p 8000:8000"}
 REDIS_SERVICE=redis-server

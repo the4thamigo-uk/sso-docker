@@ -1,4 +1,5 @@
 #!/bin/bash
 set -e
+RUN_OPTS=$@
 . ./env.sh
-docker run --detach --rm --name $MIRACL_CONTAINER -ti $MIRACL_RUN_OPTS $MIRACL_CONTAINER
+docker run $RUN_OPTS --detach --rm --name $MIRACL_CONTAINER -ti $MIRACL_RUN_OPTS $MIRACL_CONTAINER
