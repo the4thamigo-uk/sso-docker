@@ -2,7 +2,10 @@
 set -e
 . ./env.sh
 
-TMPFILE=/tmp/$MIRACL_SERVICE_FULL-rpm
+SERVICE=$1
+SERVICE_FULL="miracl-$SERVICE"
+
+TMPFILE=/tmp/$SERVICE_FULL-rpm
 
 cat > $TMPFILE <<- EOM
 [miracl]
@@ -18,5 +21,5 @@ rm $TMPFILE
 
 ./inst.sh update -y
 
-./uninstall.sh
-./inst.sh install -y -t $MIRACL_SERVICE_FULL
+./uninstall.sh $SERVICE
+./inst.sh install -y -t $SERVICE_FULL

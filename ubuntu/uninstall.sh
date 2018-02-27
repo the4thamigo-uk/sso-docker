@@ -1,4 +1,8 @@
 #!/bin/bash
 set -e
 . ./env.sh
-./inst.sh "remove --purge -y $MIRACL_SERVICE_FULL"
+
+SERVICE=$1
+SERVICE_FULL="miracl-$SERVICE"
+
+./inst.sh "remove --purge -y $SERVICE_FULL"
