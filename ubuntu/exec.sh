@@ -3,4 +3,4 @@ set -e
 . ./env.sh
 
 cmd="$@"
-docker exec -ti $MIRACL_CONTAINER sh -c "$cmd"
+docker exec -e "LINES=$(tput lines)" -e "COLUMNS=$(tput cols)" -ti $MIRACL_CONTAINER sh -c "$cmd"

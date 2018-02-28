@@ -10,3 +10,4 @@ Quickstart
 1. copy config or any other files e.g. `./cp.sh myfile.json /etc/srv-idp`
 1. start redis `./service.sh redis start`or simply `./redis.sh start`
 1. start service `./service.sh srv-idp start`
+1. execute any other commands e.g. `./exec/sh vim /etc/srv-idp/config.json`
