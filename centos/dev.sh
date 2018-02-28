@@ -2,10 +2,6 @@
 set -e
 . ./env.sh
 
-SERVICE=$1
-SERVICE_FULL="miracl-$SERVICE"
-VERSION=${2:+-$2}
-
 TMPFILE=/tmp/$SERVICE_FULL-rpm
 
 cat > $TMPFILE <<- EOM
@@ -22,6 +18,3 @@ rm $TMPFILE
 
 ./inst.sh --enablerepo=miracl clean metadata
 ./inst.sh check-update -y || test $? == 100
-
-./uninstall.sh $SERVICE
-./inst.sh install -y -t $SERVICE_FULL$VERSION

@@ -2,10 +2,6 @@
 set -e
 . ./env.sh
 
-SERVICE=$1
-SERVICE_FULL="miracl-$SERVICE"
-VERSION=${2:+=$2}
-
 TMPFILE=/tmp/$SERVICE_FULL-deb
 
 cat > $TMPFILE <<- EOM
@@ -17,6 +13,3 @@ rm $TMPFILE
 
 ./exec.sh "wget -qO - http://repo.miracl.com/build-team-public.asc | apt-key add --"
 ./inst.sh update -y
-
-./uninstall.sh $SERVICE
-./inst.sh install -y $SERVICE_FULL$VERSION
