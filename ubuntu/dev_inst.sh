@@ -4,6 +4,7 @@ set -e
 
 SERVICE=$1
 SERVICE_FULL="miracl-$SERVICE"
+VERSION=${2:+=$2}
 
 TMPFILE=/tmp/$SERVICE_FULL-deb
 
@@ -18,4 +19,4 @@ rm $TMPFILE
 ./inst.sh update -y
 
 ./uninstall.sh $SERVICE
-./inst.sh install -y --allow-unauthenticated $SERVICE_FULL
+./inst.sh install -y --allow-unauthenticated $SERVICE_FULL$VERSION

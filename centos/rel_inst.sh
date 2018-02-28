@@ -4,6 +4,7 @@ set -e
 
 SERVICE=$1
 SERVICE_FULL="miracl-$SERVICE"
+VERSION=${2:+-$2}
 
 TMPFILE=/tmp/$SERVICE_FULL-rpm
 
@@ -19,7 +20,8 @@ EOM
 ./cp.sh $TMPFILE /etc/yum.repos.d/miracl-rpm.repo
 rm $TMPFILE
 
-./inst.sh update -y
+./inst.sh --enablerepo=miracl clean metadata
+./inst.sh check-update -y || test $? == 100
 
 ./uninstall.sh $SERVICE
-./inst.sh install -y $SERVICE_FULL
+./inst.sh install -y $SERVICE_FULL$VERSION
