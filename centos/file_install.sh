@@ -2,8 +2,10 @@
 set -e
 . ./env.sh
 
-INSTFILE="$1"
-./cp.sh "$INSTFILE" /tmp
+SRCFILE="$1"
+DSTFILE=/tmp/$(basename $SRCFILE)
 
-./inst.sh localinstall -y /tmp/$(basename $INSTFILE)
-rm $INSTFILE
+./cp.sh "$SRCFILE" "$DSTFILE"
+
+./inst.sh localinstall -y $DSTFILE
+./rm.sh "$DSTFILE"
