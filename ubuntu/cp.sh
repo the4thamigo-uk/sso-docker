@@ -6,5 +6,5 @@ from=${@:1:$#-1}
 to=${@: -1}
 for fn in $from
 do
-  docker cp "$fn" $MIRACL_CONTAINER:"$to"
+  docker cp "$fn" $SSO_DOCKER_CONTAINER:"$to"
 done

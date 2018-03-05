@@ -1,0 +1,5 @@
+{
+  "includes": [
+    "http://consul:8500/v1/kv/srv-idp?raw"
+  ]
+}

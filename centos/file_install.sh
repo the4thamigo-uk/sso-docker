@@ -7,5 +7,5 @@ DSTFILE=/tmp/$(basename $SRCFILE)
 
 ./cp.sh "$SRCFILE" "$DSTFILE"
 
-./inst.sh localinstall -y $DSTFILE
+./inst.sh localinstall -y "$DSTFILE"
 ./rm.sh "$DSTFILE"

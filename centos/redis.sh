@@ -2,4 +2,4 @@
 set -e
 source ./env.sh
 cmd="$@"
-./service.sh $REDIS_SERVICE $cmd
+./service.sh $SSO_DOCKER_REDIS $cmd

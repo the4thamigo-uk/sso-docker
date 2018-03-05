@@ -2,7 +2,7 @@
 set -e
 . ./env.sh
 
-TMPFILE=/tmp/$SERVICE_FULL-rpm
+TMPFILE=$(mktemp)
 
 cat > $TMPFILE <<- EOM
 [miracl]

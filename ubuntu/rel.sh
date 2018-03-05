@@ -2,7 +2,7 @@
 set -e
 . ./env.sh
 
-TMPFILE=/tmp/$SERVICE_FULL-deb
+TMPFILE=$(mktemp)
 
 cat > $TMPFILE <<- EOM
 deb http://repo.miracl.com/apt/ubuntu all main (Note that, since it comes with i386 additional architecture, Ubuntu 14.04 should use deb [arch=amd64] http://repo.miracl.com/apt/ubuntu all main

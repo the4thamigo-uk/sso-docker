@@ -1,4 +1,3 @@
 #!/bin/bash
 set -e
-. ./env.sh
-docker stop $MIRACL_CONTAINER
+./compose.sh stop sso
