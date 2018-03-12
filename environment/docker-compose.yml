@@ -7,7 +7,7 @@ services:
       context: $SSO_DOCKER_CONTEXT
     hostname: sso
     ports:
-      - 8000:8000
+      - $SP_PORT:8000
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup 
     privileged: true
@@ -82,6 +82,6 @@ services:
       SP_ENTITYID: "http://127.0.0.1:8080"
       SP_CERT: "$SSO_DOCKER_SP_CERT"
       SP_KEY: "$SSO_DOCKER_SP_KEY"
-      IDP_BASEURL: "http://127.0.0.1:8000"
-      IDP_ENTITYID: "http://127.0.0.1:8000"
+      IDP_BASEURL: "http://127.0.0.1:$SP_PORT"
+      IDP_ENTITYID: "http://127.0.0.1:$SP_PORT"
       IDP_CERT: "$SSO_DOCKER_IDP_CERT"
