@@ -17,7 +17,7 @@ Docker containers for testing miracl SSO services
 1. configure the release miracl repo with `./rel.sh` or the development repo `./dev.sh`
 1. list the versions of a package `./versions.sh srv-idp`
 1. install the latest build `./install.sh srv-idp`, or specify a version with `./install.sh srv-idp 1.3.3-466`. Alternatively, you can install package from file `./file_install.sh miracl-srv-idp.deb`.
-1. generate a config file from a template e.g. `../config/generate srv-idp.1.3.single.json.tpl > config.json`
+1. generate a config file from a template e.g. `../config/generate.sh srv-idp.1.3.single.json.tpl > config.json`
 1. copy config or any other files e.g. `./cp.sh config.json otherconfig.json /etc/srv-idp`
 1. start redis `./service.sh redis start`or simply `./redis.sh start`
 1. start service `./service.sh srv-idp start`
@@ -33,7 +33,7 @@ Docker containers for testing miracl SSO services
 1. configure the release miracl repo with `./rel.sh` or the development repo `./dev.sh`
 1. list the versions of a package `./versions.sh srv-idp`
 1. install the latest build `./install.sh srv-idp`, or specify a version with `./install.sh srv-idp 1.3.3-466`. Alternatively, you can install package from file `./file_install.sh miracl-srv-idp.deb`.
-1. generate a config file from a template e.g. `../config/generate srv-idp.1.3.env.json.tpl > config.json`
+1. generate a config file from a template e.g. `../config/generate.sh srv-idp.1.3.env.json.tpl > config.json`
 1. copy config file to consul key e.g. `../config/consul_add.sh config.json srv-idp`
 1. copy config pointing to consul e.g. `./cp.sh ../environment/config/srv-idp.1.3.remote.json /etc/srv-idp/config.json`
 1. setup any ldap configuration e.g. `cat ../environment/ldap/users.ldif | ../environment/ldap/add.sh` (and you can remove with `cat ../environment/ldap/users.ldif | ../environment/ldap/delete.sh`)
