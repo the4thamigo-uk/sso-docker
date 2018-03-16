@@ -38,9 +38,9 @@ Docker containers for testing miracl SSO services
 1. copy config pointing to consul e.g. `./cp.sh ../environment/config/srv-idp.1.3.remote.json /etc/srv-idp/config.json`
 1. setup any ldap configuration e.g. `cat ../environment/ldap/users.ldif | ../environment/ldap/add.sh` (and you can remove with `cat ../environment/ldap/users.ldif | ../environment/ldap/delete.sh`)
 1. start the service e.g. `./service.sh srv-idp start`
-1. access srv-idp at `http://127.0.0.1/8000/services`
-1. access consul at `http://127.0.0.1/8001`
-1. access statsd/graphite at `http://127.0.0.1/8002`
+1. access srv-idp at `http://127.0.0.1:8000/services`
+1. access consul at `http://127.0.0.1:8001`
+1. access statsd/graphite at `http://127.0.0.1:8002`
 1. access ldap at `127.0.0.1:8004`
-1. access ldap GUI at `https://127.0.0.1/8005`
+1. access ldap GUI at `https://127.0.0.1:8005`
 1. tail syslog logs with `docker exec syslog tail -f /var/log/syslog`
