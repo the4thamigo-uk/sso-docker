@@ -65,7 +65,7 @@ services:
     depends_on:
       - ldap
     volumes:
-      - ./ldap/default.startup.yaml:/container/environment/01-miracl/env.yaml 
+      - ./ldap.startup.yml:/container/environment/01-miracl/env.yaml
   syslog:
     container_name: $SSO_DOCKER_SYSLOG_NAME
     image: balabit/syslog-ng
