@@ -6,7 +6,6 @@ Docker containers for testing miracl SSO services
 ### Pre-requisites
 
 1. Install [docker ce](https://docs.docker.com/install/)
-1. Install [docker compose](https://docs.docker.com/compose/install/)
 1. Setup your secrets, either :
     * (preferred) set your `SSO_DOCKER_*` values in a file in the root folder (e.g. ./.env.sh) and install in your environment using `. ./.env.sh`
 
