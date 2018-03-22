@@ -8,7 +8,7 @@ Docker containers for testing miracl SSO services
 1. Install [docker ce](https://docs.docker.com/install/)
 1. Install [docker compose](https://docs.docker.com/compose/install/)
 1. Setup your secrets, either :
-    * (preferred) set your `SSO_DOCKER_*` values ini a file in the root folder (e.g. ./.env.sh) and install in your environment using `. ./.env.sh`
+    * (preferred) set your `SSO_DOCKER_*` values in a file in the root folder (e.g. ./.env.sh) and install in your environment using `. ./.env.sh`
 
             export SSO_DOCKER_IDP_CLIENTID=1234
             export SSO_DOCKER_IDP_CLIENTSECRET=12345678
@@ -27,7 +27,7 @@ For example the following command start an srv-idp environment on ubuntu using t
 ./up.sh ubuntu dev
 ```
 
-and thfollowing command performs a graceful cleanup and shutdown of this environment :
+and the following command performs a graceful cleanup and shutdown of this environment :
 ```
 ./down.sh ubuntu
 ```
