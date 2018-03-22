@@ -1,6 +1,7 @@
 #!/bin/bash
 set -e
-file=$1
-dir="$( cd "$(dirname "$0")" ; pwd -P )"
-. $dir/env.sh
-$dir/conflate.sh --data "$file" --expand --format JSON
+. ./env.sh
+filename=$1
+
+dir="$(dirname ${BASH_SOURCE[0]})"
+$dir/conflate.sh --data "$filename" --expand --format JSON

@@ -1,10 +1,9 @@
 #!/bin/bash
 set -e
+dir="$(dirname ${BASH_SOURCE[0]})"
 
-dir="$( cd "$(dirname "$0")" ; pwd -P )"
 platform=`uname`
-
-conflate="./conflate_linux"
+conflate="conflate_linux"
 
 if [[ $platform = *"MINGW"* ]]; then
    conflate="conflate_windows"

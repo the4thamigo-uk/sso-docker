@@ -2,9 +2,8 @@
 set -e
 . ./env.sh
 
-SERVICE=$1
-SERVICE_FULL="miracl-$SERVICE"
-VERSION=${2:+=$2}
+package=$1
+package_full="miracl-$package"
+version=${2:+=$2}
 
-./uninstall.sh $SERVICE
-./inst.sh install -y --allow-unauthenticated $SERVICE_FULL$VERSION
+./inst.sh install -y --allow-downgrades --allow-unauthenticated $package_full$version
