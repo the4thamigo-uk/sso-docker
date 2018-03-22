@@ -5,4 +5,7 @@ RUN yum install -y epel-release
 RUN yum update -y
 RUN yum install -y initscripts vim nano redis curl wget deltarpm
 
-EXPOSE 80 6379 8000 1812
+ARG idp_port
+ARG radius_port
+
+EXPOSE 6379 $idp_port $redis_port

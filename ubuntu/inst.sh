@@ -1,3 +1,3 @@
 #!/bin/bash
 set -e
-./exec.sh "apt-get $@"
+./exec.sh "apt-get $@" 

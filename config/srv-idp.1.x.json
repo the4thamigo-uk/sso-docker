@@ -1,0 +1,6 @@
+{
+  "remoteConfigProvider": "consul",
+  "remoteConfigEndpoint": "consul:8500",
+  "remoteConfigPath": "/srv-idp",
+  "remoteConfigSecretKeyring": ""
+}
