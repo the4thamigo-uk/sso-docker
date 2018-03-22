@@ -78,7 +78,21 @@ curl http://127.0.0.1:$SSO_DOCKER_STATSD_PORT
 curl -k https://127.0.0.1:$SSO_DOCKER_LDAPGUI_PORT
 
 # tail srv-idp log file on sso machine with
+echo
+echo
+echo "********************************************************************************************"
+echo "             You are now monitoring the srv-idp log file on the 'sso' host.                 "
+echo "      To cancel, press Ctrl-C and your sso-docker environment will stay running             "
+echo "********************************************************************************************"
+echo
 ./logs.sh srv-idp || true
 
 # tail syslog logs with 
+echo
+echo
+echo "********************************************************************************************"
+echo "              You are now monitoring the logs in the 'syslog' server host.                  "
+echo "      To cancel, press Ctrl-C and your sso-docker environment will stay running             "
+echo "********************************************************************************************"
+echo
 ./compose.sh exec syslog tail -f /var/log/syslog

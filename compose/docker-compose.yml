@@ -27,7 +27,7 @@ services:
     image: hopsoft/graphite-statsd
     hostname: statsd 
     ports:
-      - $SSO_DOCKER_STATS_PORT:80
+      - $SSO_DOCKER_STATSD_PORT:80
     expose:
       - 53/udp
       - 2003
