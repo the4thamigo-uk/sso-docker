@@ -52,7 +52,6 @@ func New(opSys OpSys) *Context {
 }
 
 func (ctx *Context) Command(cmd string, opts ...string) error {
-	ctx.log(string(ctx.OpSys))
 	ctx.log("Running Command : `%v %v` in %v", cmd, strings.Join(opts, " "), ctx.path())
 	defer func() { ctx.log("Finished Command") }()
 
@@ -93,6 +92,14 @@ func (ctx *Context) Copy(dest string, src ...string) error {
 
 func (ctx *Context) Service(name string, action string) error {
 	return ctx.Command("./service.sh", name, action)
+}
+
+func (ctx *Context) Version(name string) (string, error) {
+	var s strings.Builder
+	revert := ctx.SetStdout(&s)
+	defer revert()
+	err := ctx.Command("./version.sh", name)
+	return s.String(), err
 }
 
 func (ctx *Context) Redis(action string) error {
