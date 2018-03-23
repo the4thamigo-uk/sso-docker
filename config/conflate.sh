@@ -2,14 +2,12 @@
 set -e
 dir="$(dirname ${BASH_SOURCE[0]})"
 
-platform=`uname`
-conflate="conflate_linux"
+cmd="conflate_linux"
 
-if [[ $platform = *"MINGW"* ]]; then
-   conflate="conflate_windows"
-elif [[ "$platform" = *"CYGWIN"* ]]; then
-   conflate="conflate_windows"
+platform=`uname`
+if [[ $platform = *"MINGW"* ]] || [[ "$platform" = *"CYGWIN"* ]]; then
+   cmd="conflate_windows"
 fi
 
-$dir/$conflate "$@"
+$dir/$cmd "$@"
 
