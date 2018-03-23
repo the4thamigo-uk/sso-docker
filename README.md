@@ -9,8 +9,10 @@ Docker containers for testing miracl SSO services
 1. Setup your secrets, either :
     * (preferred) set your `SSO_DOCKER_*` values in a file in the root folder (e.g. ./.env.sh) and install in your environment using `. ./.env.sh`
 
+            export SSO_DOCKER_IDP_BACKEND=https://api.mpin.io
             export SSO_DOCKER_IDP_CLIENTID=1234
             export SSO_DOCKER_IDP_CLIENTSECRET=12345678
+            export SSO_DOCKER_RADIUS_BACKEND=https://api.mpin.io
             export SSO_DOCKER_RADIUS_CLIENTID=1234
             export SSO_DOCKER_RADIUS_CLIENTSECRET=12345678
             export SSO_DOCKER_RADIUS_SECRET=mysecret
