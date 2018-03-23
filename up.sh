@@ -63,7 +63,7 @@ cp ../config/$LOCALCONFIG config.json
 ../ldap/add.sh ../ldap/users.ldif
 
 # start the service
-./service.sh srv-idp start
+./service.sh srv-idp restart
 
 # access srv-idp
 curl http://127.0.0.1:$SSO_DOCKER_IDP_PORT
