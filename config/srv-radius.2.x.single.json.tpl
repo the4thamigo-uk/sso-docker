@@ -5,7 +5,8 @@
   "zfa": {
     "global": {
     "client_id": "$SSO_DOCKER_RADIUS_CLIENTID",
-    "client_secret": "$SSO_DOCKER_RADIUS_CLIENTSECRET"
+    "client_secret": "$SSO_DOCKER_RADIUS_CLIENTSECRET",
+    "backend": "$SSO_DOCKER_RADIUS_BACKEND"
     }
   },
   "host": {

@@ -4,4 +4,4 @@ set -e
 filename=$1
 
 dir="$(dirname ${BASH_SOURCE[0]})"
-$dir/conflate.sh --data "$filename" --expand --format JSON
+cat $filename | $dir/conflate.sh --data stdin --expand --format JSON

@@ -5,7 +5,8 @@
   },
   "zfa": {
     "client_id": "$SSO_DOCKER_IDP_CLIENTID",
-    "client_secret": "$SSO_DOCKER_IDP_CLIENTSECRET"
+    "client_secret": "$SSO_DOCKER_IDP_CLIENTSECRET",
+    "backend": "$SSO_DOCKER_IDP_BACKEND"
   },
   "idp": {
     "private_key": "$SSO_DOCKER_IDP_KEY",

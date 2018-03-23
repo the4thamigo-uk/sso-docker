@@ -38,7 +38,7 @@
   "zfa": {
     "client_id": "$SSO_DOCKER_IDP_CLIENTID",
     "client_secret": "$SSO_DOCKER_IDP_CLIENTSECRET",
-    "backend": "https://api.mpin.io"
+    "backend": "$SSO_DOCKER_IDP_BACKEND"
   },
   "idp": {
     "private_key": "$SSO_DOCKER_IDP_KEY",
