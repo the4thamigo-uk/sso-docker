@@ -1,6 +1,7 @@
 package ssodocker
 
 import (
+	"bytes"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -95,11 +96,11 @@ func (ctx *Context) Service(name string, action string) error {
 }
 
 func (ctx *Context) Version(name string) (string, error) {
-	var s strings.Builder
-	revert := ctx.SetStdout(&s)
+	var b bytes.Buffer
+	revert := ctx.SetStdout(&b)
 	defer revert()
 	err := ctx.Command("./version.sh", name)
-	return s.String(), err
+	return string(b.Bytes()), err
 }
 
 func (ctx *Context) Redis(action string) error {
