@@ -52,58 +52,57 @@ func New(opSys OpSys) *Context {
 	}
 }
 
-func (ctx *Context) Command(cmd string, opts ...string) error {
+func (ctx *Context) Command(cmd string, opts ...string) (string, error) {
 	ctx.log("Running Command : `%v %v` in %v", cmd, strings.Join(opts, " "), ctx.path())
 	defer func() { ctx.log("Finished Command") }()
 
 	c := exec.Command(cmd, opts...)
 	c.Dir = ctx.path()
 	c.Env = ctx.env()
+
+	var out bytes.Buffer
+	ctx.SetStdout(&out)
+
 	c.Stdout = ctx.stdout()
 	c.Stderr = ctx.stderr()
 
-	return c.Run()
+	err := c.Run()
+	return string(out.Bytes()), err
 }
 
-func (ctx *Context) Up(services ...Host) error {
+func (ctx *Context) Up(services ...Host) (string, error) {
 	return ctx.Command("./compose.sh", prepend(strHosts(services), "up", "-d")...)
 }
 
-func (ctx *Context) Down(services ...Host) error {
+func (ctx *Context) Down(services ...Host) (string, error) {
 	return ctx.Command("./compose.sh", prepend(strHosts(services), "down")...)
 }
 
-func (ctx *Context) Repo(repo Repo) error {
+func (ctx *Context) Repo(repo Repo) (string, error) {
 	return ctx.Command("./repo.sh", string(repo))
 }
 
-func (ctx *Context) Install(pkg string, version string) error {
+func (ctx *Context) Install(pkg string, version string) (string, error) {
 	return ctx.Command("./install.sh", pkg, version)
 }
 
-func (ctx *Context) Generate(tmplFile string, out io.Writer) error {
-	revert := ctx.SetStdout(out)
-	defer revert()
+func (ctx *Context) Generate(tmplFile string) (string, error) {
 	return ctx.Command("../config/generate.sh", tmplFile)
 }
 
-func (ctx *Context) Copy(dest string, src ...string) error {
+func (ctx *Context) Copy(dest string, src ...string) (string, error) {
 	return ctx.Command("./cp.sh", append(src, dest)...)
 }
 
-func (ctx *Context) Service(name string, action string) error {
+func (ctx *Context) Service(name string, action string) (string, error) {
 	return ctx.Command("./service.sh", name, action)
 }
 
 func (ctx *Context) Version(name string) (string, error) {
-	var b bytes.Buffer
-	revert := ctx.SetStdout(&b)
-	defer revert()
-	err := ctx.Command("./version.sh", name)
-	return string(b.Bytes()), err
+	return ctx.Command("./version.sh", name)
 }
 
-func (ctx *Context) Redis(action string) error {
+func (ctx *Context) Redis(action string) (string, error) {
 	return ctx.Command("./redis.sh", action)
 }
 
@@ -174,8 +173,19 @@ func (ctx *Context) SetStdout(newOut io.Writer) func() {
 		return func() {}
 	}
 	oldOut := ctx.Stdout
-	ctx.Stdout = newOut
+	ctx.Stdout = io.MultiWriter(newOut, ctx.stdout())
 	return func() {
 		ctx.Stdout = oldOut
+	}
+}
+
+func (ctx *Context) SetStderr(newErr io.Writer) func() {
+	if newErr == nil {
+		return func() {}
+	}
+	oldErr := ctx.Stderr
+	ctx.Stderr = io.MultiWriter(newErr, ctx.stderr())
+	return func() {
+		ctx.Stderr = oldErr
 	}
 }
