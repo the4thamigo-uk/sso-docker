@@ -110,6 +110,14 @@ func (ctx *Context) Redis(action string) (string, error) {
 	return ctx.Command("./redis.sh", action)
 }
 
+func (ctx *Context) ConsulAdd(filename string, key string) (string, error) {
+	return ctx.Command("../consul/add.sh", filename, key)
+}
+
+func (ctx *Context) ConsulDelete(key string) (string, error) {
+	return ctx.Command("../consul/delete.sh", key)
+}
+
 func (ctx *Context) path() string {
 	return AbsPath(string(ctx.OpSys))
 }
