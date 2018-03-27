@@ -16,26 +16,30 @@ type OpSys string
 
 const (
 	Ubuntu OpSys = "ubuntu"
-	Centos       = "centos"
+	Centos OpSys = "centos"
 )
 
 type Host string
 
 const (
-	SSO    = "sso"
-	Consul = "consul"
-	Statsd = "statsd"
-	Redis  = "redis"
-	LDAP   = "ldap"
-	SysLog = "syslog"
-	SP     = "sp"
+	SSO    Host = "sso"
+	Consul Host = "consul"
+	Statsd Host = "statsd"
+	Redis  Host = "redis"
+	LDAP   Host = "ldap"
+	SysLog Host = "syslog"
+	SP     Host = "sp"
+)
+
+var (
+	FullIdp = []Host{SSO, Consul, Statsd, Redis, LDAP, SysLog, SP}
 )
 
 type Repo string
 
 const (
-	Prd = "prd"
-	Dev = "dev"
+	Prd Repo = "prd"
+	Dev Repo = "dev"
 )
 
 type Context struct {
