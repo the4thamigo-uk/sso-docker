@@ -68,12 +68,11 @@ services:
       - ./ldap.startup.yml:/container/environment/01-miracl/env.yaml
   syslog:
     container_name: $SSO_DOCKER_SYSLOG_NAME
-    image: balabit/syslog-ng
+    build:
+      context: ./syslog
     hostname: syslog
     expose:
       - 514/udp
-    volumes:
-      - ./syslog/syslog-ng.conf:/etc/syslog-ng/syslog-ng.conf
   sp:
     container_name: $SSO_DOCKER_SP_NAME
     build:

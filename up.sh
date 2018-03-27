@@ -40,10 +40,10 @@ VERSION=$(./version.sh srv-idp)
 echo $VERSION
 if [[ $VERSION == 1.* ]]; then
   REMOTECONFIG=srv-idp.1.x.remote.json
-  LOCALCONFIG=srv-idp.1.x.json
+  LOCALCONFIG=srv-idp.1.x.local.json
 else
   REMOTECONFIG=srv-idp.2.x.remote.json
-  LOCALCONFIG=srv-idp.2.x.json
+  LOCALCONFIG=srv-idp.2.x.local.json
 fi
 
 # generate a config file from a template
