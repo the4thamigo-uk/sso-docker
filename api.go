@@ -126,6 +126,21 @@ func (ctx *Context) LdapDelete(filename string) (string, error) {
 	return ctx.Command("../ldap/add.sh", filename)
 }
 
+func (ctx *Context) Environ() (map[string]string, error) {
+	out, err := ctx.Command("./dumpenv.sh")
+	if err != nil {
+		return nil, err
+	}
+	env := map[string]string{}
+	for _, line := range strings.Split(out, "\n") {
+		parts := strings.SplitN(line, "=", 2)
+		if len(parts) == 2 {
+			env[parts[0]] = parts[1]
+		}
+	}
+	return env, nil
+}
+
 func (ctx *Context) path() string {
 	return AbsPath(string(ctx.OpSys))
 }
