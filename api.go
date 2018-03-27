@@ -118,6 +118,14 @@ func (ctx *Context) ConsulDelete(key string) (string, error) {
 	return ctx.Command("../consul/delete.sh", key)
 }
 
+func (ctx *Context) LdapAdd(filename string) (string, error) {
+	return ctx.Command("../ldap/add.sh", filename)
+}
+
+func (ctx *Context) LdapDelete(filename string) (string, error) {
+	return ctx.Command("../ldap/add.sh", filename)
+}
+
 func (ctx *Context) path() string {
 	return AbsPath(string(ctx.OpSys))
 }
