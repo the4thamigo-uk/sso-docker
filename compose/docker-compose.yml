@@ -15,6 +15,14 @@ services:
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup 
     privileged: true
+  browser:
+    container_name: $SSO_DOCKER_BROWSER_NAME
+    image: selenium/standalone-firefox
+    volumes:
+      - /dev/shm:/dev/shm
+    ports:
+      - $SSO_DOCKER_BROWSER_PORT:4444
+    network_mode: host
   consul:
     container_name: $SSO_DOCKER_CONSUL_NAME
     image: progrium/consul
@@ -81,10 +89,10 @@ services:
     ports:
       - $SSO_DOCKER_SP_PORT:80
     environment:
-      SP_BASEURL: "http://127.0.0.1:$SSO_DOCKER_SP_PORT"
-      SP_ENTITYID: "http://127.0.0.1:$SSO_DOCKER_SP_PORT"
+      SP_BASEURL: "$SSO_DOCKER_SP_BASEURL"
+      SP_ENTITYID: "$SSO_DOCKER_SP_BASEURL"
       SP_CERT: "$SSO_DOCKER_SP_CERT"
       SP_KEY: "$SSO_DOCKER_SP_KEY"
-      IDP_BASEURL: "http://127.0.0.1:$SSO_DOCKER_IDP_PORT"
-      IDP_ENTITYID: "http://127.0.0.1:$SSO_DOCKER_IDP_PORT"
+      IDP_BASEURL: "$SSO_DOCKER_IDP_BASEURL"
+      IDP_ENTITYID: "$SSO_DOCKER_IDP_BASEURL"
       IDP_CERT: "$SSO_DOCKER_IDP_CERT"

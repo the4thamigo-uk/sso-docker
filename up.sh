@@ -66,16 +66,16 @@ cp ../config/$LOCALCONFIG config.json
 ./service.sh srv-idp restart
 
 # access srv-idp
-curl http://127.0.0.1:$SSO_DOCKER_IDP_PORT
+curl $SSO_DOCKER_IDP_BASEURL
 
 # access consul
-curl http://127.0.0.1:$SSO_DOCKER_CONSUL_PORT
+curl $SSO_DOCKER_CONSUL_BASEURL
 
 # access graphite GUI
-curl http://127.0.0.1:$SSO_DOCKER_STATSD_PORT
+curl $SSO_DOCKER_STATSD_BASEURL
 
 # access ldap GUI
-curl -k https://127.0.0.1:$SSO_DOCKER_LDAPGUI_PORT
+curl -k $SSO_DOCKER_LDAPGUI_BASEURL
 
 # tail srv-idp log file on sso machine with
 echo

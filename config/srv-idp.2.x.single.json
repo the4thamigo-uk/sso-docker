@@ -1,7 +1,7 @@
 {
   "server": {
     "address": ":$SSO_DOCKER_IDP_PORT_INT",
-    "public_address": "http://127.0.0.1:$SSO_DOCKER_IDP_PORT"
+    "public_address": "$SSO_DOCKER_IDP_BASEURL"
   },
   "zfa": {
     "client_id": "$SSO_DOCKER_IDP_CLIENTID",
