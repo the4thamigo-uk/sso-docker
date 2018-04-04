@@ -15,14 +15,6 @@ services:
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup 
     privileged: true
-  browser:
-    container_name: $SSO_DOCKER_BROWSER_NAME
-    image: selenium/standalone-firefox
-    volumes:
-      - /dev/shm:/dev/shm
-    ports:
-      - $SSO_DOCKER_BROWSER_PORT:4444
-    network_mode: host
   consul:
     container_name: $SSO_DOCKER_CONSUL_NAME
     image: progrium/consul
