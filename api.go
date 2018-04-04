@@ -9,6 +9,7 @@ import (
 	"os/exec"
 	"path"
 	"runtime"
+	"strconv"
 	"strings"
 )
 
@@ -127,11 +128,11 @@ func (ctx *Context) LdapDelete(filename string) (string, error) {
 }
 
 func (ctx *Context) Register(path string, clientID string, email string, deviceName string, redirectUri string) (string, error) {
-	return ctx.Command("./mfa/mfaclient.sh", "--path", path, "auth", "register", "--client-id", clientID, "--email", email, "--device-name", deviceName, "--client-redirect-uri", redirectUri)
+	return ctx.Command("../mfa/mfaclient.sh", "--path", path, "auth", "register", "--client-id", clientID, "--email", email, "--device-name", deviceName, "--client-redirect-uri", redirectUri)
 }
 
-func (ctx *Context) Authenticate(path string, authUrl string, id string, pin string) (string, error) {
-	return ctx.Command("./mfa/mfaclient.sh", "--path", path, "auth", "--num", id, "--pin", pin, authUrl)
+func (ctx *Context) Authenticate(path string, authUrl string, id int, pin string) (string, error) {
+	return ctx.Command("../mfa/mfaclient.sh", "--path", path, "auth", "--num", strconv.Itoa(id), "--pin", pin, authUrl)
 }
 
 func (ctx *Context) Environ() (map[string]string, error) {
