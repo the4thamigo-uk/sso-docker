@@ -44,9 +44,9 @@
   "sp": {
     "sptest": {
       "description": "Test Service Provider",
-      "issuer": "$SSO_DOCKER_SP_BASEURL/php-saml/demo2",
-      "relay_state": "/",
-      "login_url": "$SSO_DOCKER_SP_BASEURL/php-saml/demo2/",
+      "issuer": "$SSO_DOCKER_SP_BASEURL",
+      "relay_state": "/php-saml/demo2/index.php",
+      "login_url": "$SSO_DOCKER_SP_BASEURL/php-saml/demo2/index.php",
       "logout_url": "$SSO_DOCKER_SP_BASEURL/php-saml/demo2/slo.php",
       "metadata": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><md:EntityDescriptor xmlns:md=\"urn:oasis:names:tc:SAML:2.0:metadata\" entityID=\"$SSO_DOCKER_SP_BASEURL\" xmlns:ds=\"http://www.w3.org/2000/09/xmldsig#\"><md:SPSSODescriptor AuthnRequestsSigned=\"true\" WantAssertionsSigned=\"true\" protocolSupportEnumeration=\"urn:oasis:names:tc:SAML:2.0:protocol\"><md:KeyDescriptor use=\"signing\"><ds:KeyInfo><ds:X509Data><ds:X509Certificate>$SSO_DOCKER_SP_CERT</ds:X509Certificate></ds:X509Data></ds:KeyInfo></md:KeyDescriptor><md:KeyDescriptor use=\"encryption\"><ds:KeyInfo><ds:X509Data><ds:X509Certificate>$SSO_DOCKER_SP_CERT</ds:X509Certificate></ds:X509Data></ds:KeyInfo></md:KeyDescriptor><md:NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress</md:NameIDFormat><md:AssertionConsumerService Binding=\"urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST\" Location=\"$SSO_DOCKER_SP_BASEURL/php-saml/demo2/acs.php\" index=\"0\" isDefault=\"true\"/><md:AttributeConsumingService index=\"0\" isDefault=\"true\"><md:ServiceName xmlns:xml=\"http://www.w3.org/XML/1998/namespace\" xml:lang=\"en\">SPTest</md:ServiceName></md:AttributeConsumingService></md:SPSSODescriptor></md:EntityDescriptor>",
       "sign_response": true,

@@ -89,7 +89,7 @@
     "example": {
       "description": "",
       "issuer": "http://example.com",
-      "relay_state": "/",
+      "relay_state": "/php-saml/demo2/index.php",
       "login_url": "",
       "logout_url": "",
       "slo_url": "",
