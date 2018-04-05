@@ -63,7 +63,9 @@ cp ../config/$LOCALCONFIG config.json
 ../ldap/add.sh ../ldap/users.ldif
 
 # start the service
-./service.sh srv-idp restart
+# NB: we do explicit stop and start rather than restart to cater for a bug in pre-v2 releases
+./service.sh srv-idp stop || true
+./service.sh srv-idp start
 
 # access srv-idp
 curl $SSO_DOCKER_IDP_BASEURL
