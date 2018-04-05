@@ -1,6 +1,8 @@
 <?php
 
-$sp_baseurl = getenv('SP_BASEURL');
+$sp_siteurl = getenv('SP_SITEURL');
+$sp_acsurl = getenv('SP_ACSURL');
+$sp_logouturl = getenv('SP_LOGOUTURL');
 $sp_entityid = getenv('SP_ENTITYID');
 $sp_cert = getenv('SP_CERT');
 $sp_key = getenv('SP_KEY');
@@ -23,7 +25,7 @@ $settings = array (
     // the BaseURL of the view that process the SAML Message.
     // Ex. http://sp.example.com/
     //     http://example.com/sp/ 
-    'baseurl' => $sp_baseurl.'/php-saml/demo2/',
+    'baseurl' => $sp_siteurl,
 
     // Service Provider Data that we are deploying
     'sp' => array (
@@ -33,7 +35,7 @@ $settings = array (
         // returned to the requester, in this case our SP.
         'assertionConsumerService' => array (
             // URL Location where the <Response> from the IdP will be returned
-            'url' => $sp_baseurl.'/php-saml/demo2/acs.php',
+            'url' => $sp_acsurl,
             // SAML protocol binding to be used when returning the <Response>
             // message.  Onelogin Toolkit supports for this endpoint the
             // HTTP-Redirect binding only
@@ -59,7 +61,7 @@ $settings = array (
         // returned to the requester, in this case our SP.
         'singleLogoutService' => array (
             // URL Location where the <Response> from the IdP will be returned
-            'url' => $sp_baseurl . '/php-saml/demo2/slo.php',
+            'url' => $sp_logouturl,
             // SAML protocol binding to be used when returning the <Response>
             // message.  Onelogin Toolkit supports for this endpoint the
             // HTTP-Redirect binding only
