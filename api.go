@@ -44,17 +44,30 @@ const (
 )
 
 type Context struct {
-	OpSys  OpSys
-	Env    []string
-	Stdlog io.Writer
-	Stdout io.Writer
-	Stderr io.Writer
+	opSys   OpSys
+	userEnv []string
+	Stdlog  io.Writer
+	Stdout  io.Writer
+	Stderr  io.Writer
+	env     map[string]string
 }
 
-func New(opSys OpSys) *Context {
-	return &Context{
-		OpSys: opSys,
+func New(opSys OpSys, userEnv []string) (*Context, error) {
+
+	mergedEnv := append(append([]string{}, os.Environ()...), userEnv...)
+
+	ctx := &Context{
+		opSys:   opSys,
+		userEnv: mergedEnv,
 	}
+
+	env, err := ctx.dumpEnv()
+	if err != nil {
+		return nil, err
+	}
+	ctx.env = env
+
+	return ctx, nil
 }
 
 func (ctx *Context) Command(cmd string, opts ...string) (string, error) {
@@ -63,7 +76,7 @@ func (ctx *Context) Command(cmd string, opts ...string) (string, error) {
 
 	c := exec.Command(cmd, opts...)
 	c.Dir = ctx.path()
-	c.Env = ctx.env()
+	c.Env = ctx.userEnv
 
 	var out bytes.Buffer
 	ctx.SetStdout(&out)
@@ -135,7 +148,11 @@ func (ctx *Context) Authenticate(path string, authUrl string, id int, pin string
 	return ctx.Command("../mfa/mfaclient.sh", "--path", path, "auth", "--num", strconv.Itoa(id), "--pin", pin, authUrl)
 }
 
-func (ctx *Context) Environ() (map[string]string, error) {
+func (ctx *Context) Env() map[string]string {
+	return ctx.env
+}
+
+func (ctx *Context) dumpEnv() (map[string]string, error) {
 	out, err := ctx.Command("./dumpenv.sh")
 	if err != nil {
 		return nil, err
@@ -151,11 +168,7 @@ func (ctx *Context) Environ() (map[string]string, error) {
 }
 
 func (ctx *Context) path() string {
-	return AbsPath(string(ctx.OpSys))
-}
-
-func (ctx *Context) env() []string {
-	return append(append([]string{}, os.Environ()...), ctx.Env...)
+	return AbsPath(string(ctx.opSys))
 }
 
 func (ctx *Context) logErr(err error) {
