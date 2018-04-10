@@ -13,34 +13,33 @@ import (
 	"strings"
 )
 
-type OpSys string
+type OpSys int
+type Host int
+type Repo int
 
 const (
-	Ubuntu OpSys = "ubuntu"
-	Centos OpSys = "centos"
+	Ubuntu OpSys = 1 + iota
+	Centos
 )
 
-type Host string
+const (
+	SSO Host = 1 + iota
+	Consul
+	Statsd
+	Redis
+	LDAP
+	SysLog
+	SP
+)
 
 const (
-	SSO    Host = "sso"
-	Consul Host = "consul"
-	Statsd Host = "statsd"
-	Redis  Host = "redis"
-	LDAP   Host = "ldap"
-	SysLog Host = "syslog"
-	SP     Host = "sp"
+	Prd Repo = 1 + iota
+	Dev
 )
 
 var (
-	FullIdp = []Host{SSO, Consul, Statsd, Redis, LDAP, SysLog, SP}
-)
-
-type Repo string
-
-const (
-	Prd Repo = "prd"
-	Dev Repo = "dev"
+	IdpHosts    = []Host{SSO, Consul, Statsd, Redis, LDAP, SysLog, SP}
+	RadiusHosts = []Host{SSO, Consul, Statsd, Redis, LDAP, SysLog}
 )
 
 type Context struct {
@@ -97,7 +96,7 @@ func (ctx *Context) Down(services ...Host) (string, error) {
 }
 
 func (ctx *Context) Repo(repo Repo) (string, error) {
-	return ctx.Command("./repo.sh", string(repo))
+	return ctx.Command("./repo.sh", repo.String())
 }
 
 func (ctx *Context) Install(pkg string, version string) (string, error) {
@@ -168,7 +167,7 @@ func (ctx *Context) dumpEnv() (map[string]string, error) {
 }
 
 func (ctx *Context) path() string {
-	return AbsPath(string(ctx.opSys))
+	return AbsPath(ctx.opSys.String())
 }
 
 func (ctx *Context) logErr(err error) {
@@ -220,7 +219,7 @@ func prepend(after []string, before ...string) []string {
 func strHosts(svs []Host) []string {
 	s := []string{}
 	for _, sv := range svs {
-		s = append(s, string(sv))
+		s = append(s, sv.String())
 	}
 	return s
 }
@@ -245,4 +244,36 @@ func (ctx *Context) SetStderr(newErr io.Writer) func() {
 	return func() {
 		ctx.Stderr = oldErr
 	}
+}
+
+var (
+	opSysNames = []string{
+		"ubuntu",
+		"centos",
+	}
+	hostNames = []string{
+		"sso",
+		"consul",
+		"statsd",
+		"redis",
+		"ldap",
+		"syslog",
+		"sp",
+	}
+	repoNames = []string{
+		"prd",
+		"dev",
+	}
+)
+
+func (os OpSys) String() string {
+	return opSysNames[os-1]
+}
+
+func (h Host) String() string {
+	return hostNames[h-1]
+}
+
+func (r Repo) String() string {
+	return repoNames[r-1]
 }
