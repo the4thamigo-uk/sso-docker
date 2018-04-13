@@ -2,12 +2,17 @@
 set -e
 dir="$(dirname ${BASH_SOURCE[0]})"
 
-cmd="conflate_linux"
-
 platform=`uname`
 if [[ $platform = *"MINGW"* ]] || [[ "$platform" = *"CYGWIN"* ]]; then
-   cmd="conflate_windows"
+  cmd="$dir/conflate_windows"
+  if ! [[ -e $cmd ]]; then
+    curl -sL  https://github.com/miracl/conflate/releases/download/v0.0.0/conflate.windows-amd64.tar.gz | tar -xz && mv conflate.exe $cmd
+  fi
+else
+  cmd="$dir/conflate_linux"
+  if ! [[ -e $cmd ]]; then
+    curl -sL  https://github.com/miracl/conflate/releases/download/v0.0.0/conflate.linux-amd64.tar.gz | tar -xz && mv conflate $cmd
+  fi
 fi
 
-$dir/$cmd "$@"
-
+$cmd "$@"
