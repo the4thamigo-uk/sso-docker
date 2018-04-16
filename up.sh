@@ -55,6 +55,9 @@ cp ../config/$LOCALCONFIG config.json
 # copy remote config file to consul key
 ../consul/add.sh config.remote.json srv-idp
 
+# remove any existing configuration
+./rm.sh -rf '/etc/srv-idp/*'
+
 # copy local config pointing to consul key
 ./cp.sh config.json /etc/srv-idp
 
