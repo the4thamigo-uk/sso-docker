@@ -16,5 +16,8 @@ if ! $cmd --help &> /dev/null; then
   cmd=docker-compose
 fi
 
-$cmd -f "$dir/docker-compose.yml" "$@"
+if [[ $1 = "down" ]]; then
+  OPTS="-v"
+fi
 
+$cmd -f "$dir/docker-compose.yml" "$1" $OPTS "${@:2}"
