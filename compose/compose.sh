@@ -7,7 +7,7 @@ cmd="$dir/docker-compose_linux"
 
 platform=`uname`
 if [[ $platform = *"MINGW"* ]] || [[ "$platform" = *"CYGWIN"* ]]; then
-   cmd="$dir/docker-compose_windows"
+  cmd="$dir/docker-compose_windows"
 fi
 
 # check if our vendored versions loads correctly
