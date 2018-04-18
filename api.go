@@ -95,6 +95,10 @@ func (ctx *Context) Down(services ...Host) (string, error) {
 	return ctx.Command("./compose.sh", prepend(strHosts(services), "down")...)
 }
 
+func (ctx *Context) Exec(cmd string, args ...string) (string, error) {
+	return ctx.Command("./exec.sh", prepend(args, cmd)...)
+}
+
 func (ctx *Context) Repo(repo Repo) (string, error) {
 	return ctx.Command("./repo.sh", repo.String())
 }
