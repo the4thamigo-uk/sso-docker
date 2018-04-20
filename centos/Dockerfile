@@ -7,8 +7,6 @@ ARG radius_port
 
 FROM $from_image
 
-FROM $from_image
-
 ENV container docker
 MAINTAINER The CentOS Project <cloud-ops@centos.org>
 

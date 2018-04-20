@@ -1,0 +1,10 @@
+#!/bin/bash
+export SSO_DOCKER_UBUNTU_VERSION=${SSO_DOCKER_UBUNTU_VERSION:-latest}
+export SSO_DOCKER_FROM_IMAGE="ubuntu:$SSO_DOCKER_UBUNTU_VERSION"
+export SSO_DOCKER_IMAGE="miracl-sso-ubuntu:$SSO_DOCKER_UBUNTU_VERSION"
+export SSO_DOCKER_NAME=ubuntu
+export SSO_DOCKER_PORT_BASE=${SSO_DOCKER_PORT_BASE:-8000}
+export SSO_DOCKER_CONTEXT=$(pwd)
+export SSO_DOCKER_REDIS=redis-server
+
+. ../compose/env.sh
