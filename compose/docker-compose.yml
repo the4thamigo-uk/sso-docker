@@ -8,6 +8,7 @@ services:
       args:
         idp_port: $SSO_DOCKER_IDP_PORT_INT
         radius_port: $SSO_DOCKER_RADIUS_PORT_INT
+        from_image: $SSO_DOCKER_FROM_IMAGE
     hostname: idp
     ports:
       - $SSO_DOCKER_IDP_PORT:$SSO_DOCKER_IDP_PORT_INT
