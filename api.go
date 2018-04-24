@@ -116,7 +116,7 @@ func (ctx *Context) Copy(dest string, src ...string) (string, error) {
 }
 
 func (ctx *Context) Rm(path string, opts ...string) (string, error) {
-	return ctx.Command("./rm.sh", append(opts, path)...)
+	return ctx.Command("./rm.sh", prepend(opts, path)...)
 }
 
 func (ctx *Context) Mkdir(path string, opts ...string) (string, error) {
