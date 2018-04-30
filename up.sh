@@ -39,11 +39,11 @@ env | grep SSO_DOCKER
 VERSION=$(./version.sh srv-idp)
 echo $VERSION
 if [[ $VERSION == 1.* ]]; then
-  REMOTECONFIG=srv-idp.1.x.remote.json.tpl
-  LOCALCONFIG=srv-idp.1.x.json
+  REMOTECONFIG=srv-idp.1.x.remote.json
+  LOCALCONFIG=srv-idp.1.x.local.json
 else
-  REMOTECONFIG=srv-idp.2.x.remote.json.tpl
-  LOCALCONFIG=srv-idp.2.x.json
+  REMOTECONFIG=srv-idp.2.x.remote.json
+  LOCALCONFIG=srv-idp.2.x.local.json
 fi
 
 # generate a config file from a template
@@ -66,19 +66,21 @@ cp ../config/$LOCALCONFIG config.json
 ../ldap/add.sh ../ldap/users.ldif
 
 # start the service
-./service.sh srv-idp restart
+# NB: we do explicit stop and start rather than restart to cater for a bug in pre-v2 releases
+./service.sh srv-idp stop || true
+./service.sh srv-idp start
 
 # access srv-idp
-curl http://127.0.0.1:$SSO_DOCKER_IDP_PORT
+curl $SSO_DOCKER_IDP_BASEURL
 
 # access consul
-curl http://127.0.0.1:$SSO_DOCKER_CONSUL_PORT
+curl $SSO_DOCKER_CONSUL_BASEURL
 
 # access graphite GUI
-curl http://127.0.0.1:$SSO_DOCKER_STATSD_PORT
+curl $SSO_DOCKER_STATSD_BASEURL
 
 # access ldap GUI
-curl -k https://127.0.0.1:$SSO_DOCKER_LDAPGUI_PORT
+curl -k $SSO_DOCKER_LDAPGUI_BASEURL
 
 # tail srv-idp log file on sso machine with
 echo

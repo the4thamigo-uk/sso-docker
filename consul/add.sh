@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 . ./env.sh
-filename=./$1
+filename=$1
 key=$2
 key=${key#/}
 key=${key%/}

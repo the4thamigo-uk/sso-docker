@@ -7,7 +7,6 @@ cmd="$dir/docker-compose_linux"
 
 platform=`uname`
 if [[ $platform = *"MINGW"* ]] || [[ "$platform" = *"CYGWIN"* ]]; then
-  export COMPOSE_CONVERT_WINDOWS_PATHS=1
   cmd="$dir/docker-compose_windows"
 fi
 
