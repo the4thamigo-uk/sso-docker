@@ -7,6 +7,9 @@ SSO_DOCKER_OS=$1
 # select a miracl package repository (dev, prd)
 SSO_DOCKER_REPO=$2
 
+# select a miracl package repository (dev, prd)
+SSO_DOCKER_SERVICE=${3:-srv-idp}
+
 # cd to os folder
 cd $SSO_DOCKER_OS
 
@@ -25,25 +28,25 @@ env | grep SSO_DOCKER
 ./repo.sh $SSO_DOCKER_REPO
 
 # list the versions of a package in the repo
-./versions.sh srv-idp
+./versions.sh $SSO_DOCKER_SERVICE
 
 # install the latest build from the repo ...
-./install.sh srv-idp
+./install.sh $SSO_DOCKER_SERVICE
 
 # ... or specify a particular version with ...
-#./install.sh srv-idp 2.1.0-2181
+#./install.sh $SSO_DOCKER_SERVICE 2.1.0-2181
 
 # ... or install package from file 
-#./file_install.sh miracl-srv-idp.deb
+#./file_install.sh miracl-$SSO_DOCKER_SERVICE.deb
 
-VERSION=$(./version.sh srv-idp)
+VERSION=$(./version.sh $SSO_DOCKER_SERVICE)
 echo $VERSION
 if [[ $VERSION == 1.* ]]; then
-  REMOTECONFIG=srv-idp.1.x.remote.json
-  LOCALCONFIG=srv-idp.1.x.local.json
+  REMOTECONFIG=$SSO_DOCKER_SERVICE.1.x.remote.json
+  LOCALCONFIG=$SSO_DOCKER_SERVICE.1.x.local.json
 else
-  REMOTECONFIG=srv-idp.2.x.remote.json
-  LOCALCONFIG=srv-idp.2.x.local.json
+  REMOTECONFIG=$SSO_DOCKER_SERVICE.2.x.remote.json
+  LOCALCONFIG=$SSO_DOCKER_SERVICE.2.x.local.json
 fi
 
 # generate a config file from a template
@@ -53,13 +56,13 @@ fi
 cp ../config/$LOCALCONFIG config.json
 
 # copy remote config file to consul key
-../consul/add.sh config.remote.json srv-idp
+../consul/add.sh config.remote.json $SSO_DOCKER_SERVICE
 
 # remove any existing configuration
-./rm.sh -rf '/etc/srv-idp/*'
+./rm.sh -rf "/etc/$SSO_DOCKER_SERVICE/*"
 
 # copy local config pointing to consul key
-./cp.sh config.json /etc/srv-idp
+./cp.sh config.json /etc/$SSO_DOCKER_SERVICE
 
 # setup any ldap configuration ...
 ../ldap/delete.sh ../ldap/users.ldif || true
@@ -67,11 +70,14 @@ cp ../config/$LOCALCONFIG config.json
 
 # start the service
 # NB: we do explicit stop and start rather than restart to cater for a bug in pre-v2 releases
-./service.sh srv-idp stop || true
-./service.sh srv-idp start
+./service.sh $SSO_DOCKER_SERVICE stop || true
+./service.sh $SSO_DOCKER_SERVICE start
 
-# access srv-idp
-curl $SSO_DOCKER_IDP_BASEURL
+
+if [[ $SSO_DOCKER_SERVICE == srv-idp ]]; then
+  # access $SSO_DOCKER_SERVICE
+  curl $SSO_DOCKER_IDP_BASEURL
+fi
 
 # access consul
 curl $SSO_DOCKER_CONSUL_BASEURL
@@ -82,15 +88,15 @@ curl $SSO_DOCKER_STATSD_BASEURL
 # access ldap GUI
 curl -k $SSO_DOCKER_LDAPGUI_BASEURL
 
-# tail srv-idp log file on sso machine with
+# tail $SSO_DOCKER_SERVICE log file on sso machine with
 echo
 echo
 echo "********************************************************************************************"
-echo "             You are now monitoring the srv-idp log file on the 'sso' host.                 "
+echo "             You are now monitoring the $SSO_DOCKER_SERVICE log file on the 'sso' host.                 "
 echo "      To cancel, press Ctrl-C and your sso-docker environment will stay running             "
 echo "********************************************************************************************"
 echo
-./logs.sh srv-idp || true
+./logs.sh $SSO_DOCKER_SERVICE || true
 
 # tail syslog logs with 
 echo

@@ -9,6 +9,9 @@ services:
         idp_port: $SSO_DOCKER_IDP_PORT_INT
         radius_port: $SSO_DOCKER_RADIUS_PORT_INT
         from_image: $SSO_DOCKER_FROM_IMAGE
+    networks:
+      - default
+      - radius
     ports:
       - $SSO_DOCKER_IDP_PORT:$SSO_DOCKER_IDP_PORT_INT
       - $SSO_DOCKER_RADIUS_PORT:$SSO_DOCKER_RADIUS_PORT_INT/udp
@@ -84,8 +87,24 @@ services:
       IDP_BASEURL: "$SSO_DOCKER_IDP_BASEURL"
       IDP_ENTITYID: "$SSO_DOCKER_IDP_BASEURL"
       IDP_CERT: "$SSO_DOCKER_IDP_CERT"
+
+  openssh:
+    container_name: $SSO_DOCKER_OPENSSH_NAME
+    image: miracl/sso_openssh
+    ports:
+      - $SSO_DOCKER_OPENSSH_PORT_INT:$SSO_DOCKER_OPENSSH_PORT
+    networks:
+      radius:
+        ipv4_address: $SSO_DOCKER_OPENSSH_IP
+    environment:
+      RADIUS_SERVER_ADDRESS: sso
+      RADIUS_SERVER_PORT: "$SSO_DOCKER_RADIUS_PORT_INT"
+      RADIUS_TEST_USER: "$SSO_DOCKER_OPENSSH_USER"
+      RADIUS_TEST_HOST_SECRET: "$SSO_DOCKER_RADIUS_SECRET"
+    command: /bin/bash -c 'echo "$$RADIUS_SERVER_ADDRESS:$$RADIUS_SERVER_PORT $$RADIUS_TEST_HOST_SECRET 1" > /etc/pam_radius_auth.conf; adduser --disabled-password --gecos "" --force-badname $$RADIUS_TEST_USER; service ssh restart; /sbin/my_init'
+
   nginx:
-    container_name: nginx
+    container_name: $SSO_DOCKER_NGINX_NAME
     image: nginx
     volumes:
      - ./nginx/nginx.conf:/tmp/nginx.conf
@@ -100,4 +119,10 @@ services:
     command: /bin/sh -c "envsubst < /tmp/nginx.conf > /etc/nginx/nginx.conf && nginx -g 'daemon off;'"
     depends_on:
       - sso
-      
+
+networks:
+  radius:
+    ipam:
+      config:
+      - subnet: 172.16.0.0/24
+        gateway: 172.16.0.1
