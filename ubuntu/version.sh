@@ -1,3 +1,3 @@
 #!/bin/bash
 set -e
-./exec.sh apt show miracl-$1 | grep Version | sed 's/Version: \(.*\)/\1/g'
+./exec.sh dpkg -s miracl-$1 | grep Version | sed 's/.*: \(.*\)/\1/g'

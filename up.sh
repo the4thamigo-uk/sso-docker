@@ -10,6 +10,9 @@ SSO_DOCKER_REPO=$2
 # select a miracl package repository (dev, prd)
 SSO_DOCKER_SERVICE=${3:-srv-idp}
 
+# select a miracl package repository (dev, prd)
+SSO_DOCKER_VERSION=$4
+
 # cd to os folder
 cd $SSO_DOCKER_OS
 
@@ -31,7 +34,7 @@ env | grep SSO_DOCKER
 ./versions.sh $SSO_DOCKER_SERVICE
 
 # install the latest build from the repo ...
-./install.sh $SSO_DOCKER_SERVICE
+./install.sh $SSO_DOCKER_SERVICE $SSO_DOCKER_VERSION
 
 # ... or specify a particular version with ...
 #./install.sh $SSO_DOCKER_SERVICE 2.1.0-2181

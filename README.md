@@ -29,7 +29,7 @@ Docker containers for testing miracl SSO services
 
 To run up an example srv-idp environment refer to the example [up](./up.sh)/[down](./down.sh) scripts:
 ```
-./up.sh [ubuntu|centos] [dev|prd] [srv-idp|srv-radius]
+./up.sh [ubuntu|centos] [dev|prd] [srv-idp|srv-radius] [version]
 ```
 
 ```
@@ -48,9 +48,9 @@ To test, open [this](http://127.0.0.1:8000/services) link. If you start a centos
 
 #### RADIUS Example
 
-The following command starts a srv-radius environment, with openssh, on ubuntu, using the latest production build :
+The following command starts a srv-radius environment, with openssh, on ubuntu, using a specific production release :
 ```
-./up.sh ubuntu prd srv-radius
+./up.sh ubuntu prd srv-radius 1.2.3-456
 ```
 
 To test, use the following command :
