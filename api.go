@@ -111,6 +111,10 @@ func (ctx *Context) Install(pkg string, version string) (string, error) {
 	return ctx.Command("./install.sh", pkg, version)
 }
 
+func (ctx *Context) Logs(pkg string) (string, error) {
+	return ctx.Command("./logs.sh", pkg)
+}
+
 func (ctx *Context) Generate(tmplFile string) (string, error) {
 	return ctx.Command("../config/generate.sh", tmplFile)
 }
