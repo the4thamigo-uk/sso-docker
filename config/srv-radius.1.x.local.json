@@ -1,0 +1,12 @@
+{
+  "remoteConfigProvider": "consul",
+  "remoteConfigEndpoint": "consul:8500",
+  "remoteConfigPath": "/srv-radius",
+  "remoteConfigSecretKeyring": "",
+  "stats": {
+    "prefix": "srv-radius",
+    "network": "udp",
+    "address": "statsd:8125",
+    "flush_period": 100
+  }
+}

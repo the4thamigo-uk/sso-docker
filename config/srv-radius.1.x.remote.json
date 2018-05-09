@@ -1,0 +1,68 @@
+{
+  "ServerAuthenticationAddress": ":$SSO_DOCKER_RADIUS_PORT_INT",
+  "log": {
+    "level": "INFO",
+    "network": "udp",
+    "address": "syslog:514"
+  },
+  "stats": {
+    "prefix": "srv-radius",
+    "network": "udp",
+    "address": "statsd:8125",
+    "flush_period": 100
+  },
+  "redis": {
+    "network": "tcp",
+    "address": "redis:6379",
+    "database": 0,
+    "password": "",
+    "connect_timeout": 0,
+    "read_timeout": 0,
+    "write_timeout": 0,
+    "pool_max_idle": 0,
+    "pool_max_active": 0,
+    "pool_idle_timeout": 0,
+    "max_age": 3600
+  },
+  "zfa": {
+    "global": {
+      "client_id": "$SSO_DOCKER_RADIUS_CLIENTID",
+      "client_secret": "$SSO_DOCKER_RADIUS_CLIENTSECRET",
+      "otp_endpoint": "$SSO_DOCKER_RADIUS_BACKEND",
+      "max_uses": 1,
+      "max_attempts": 3
+    }
+  },
+  "ldap": {
+    "server": {
+      "global": {
+        "method": "plain",
+        "address": "ldap:389",
+        "user": "cn=admin,dc=example,dc=com",
+        "password": "password"
+      }
+    },
+    "query": {
+      "global": {
+        "server": "global",
+        "search": [
+            {"dn": "ou=users,dc=example,dc=com", "filter": "(mail={{.UserID}})"}
+        ]
+      }
+    }
+  },
+  "peap": {
+    "private_key": "",
+    "public_certificate": ""
+  },
+  "host": {
+    "$SSO_DOCKER_OPENSSH_IP": {
+      "name": "openssh",
+      "authorize": [[{"ldap": "global"}]],
+      "zfa": "global",
+      "secret": "$SSO_DOCKER_RADIUS_SECRET"
+    }
+  },
+  "protocols": ["pap", "chap", "mschapv1"]
+}
+
