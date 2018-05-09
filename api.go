@@ -91,6 +91,10 @@ func (ctx *Context) Up(services ...Host) (string, error) {
 	return ctx.Command("./compose.sh", prepend(strHosts(services), "up", "-d")...)
 }
 
+func (ctx *Context) Build(services ...Host) (string, error) {
+	return ctx.Command("./compose.sh", prepend(strHosts(services), "build")...)
+}
+
 func (ctx *Context) Down(services ...Host) (string, error) {
 	return ctx.Command("./compose.sh", prepend(strHosts(services), "down")...)
 }
