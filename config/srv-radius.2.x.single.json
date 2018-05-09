@@ -1,0 +1,20 @@
+{
+  "server": {
+    "address": ":$SSO_DOCKER_RADIUS_PORT_INT"
+  },
+  "zfa": {
+    "global": {
+    "client_id": "$SSO_DOCKER_RADIUS_CLIENTID",
+    "client_secret": "$SSO_DOCKER_RADIUS_CLIENTSECRET",
+    "otp_endpoint": "$SSO_DOCKER_RADIUS_BACKEND"
+    }
+  },
+  "host": {
+    "$SSO_DOCKER_OPENSSH_IP": {
+      "name": "openssh",
+      "authorize": true,
+      "zfa": "global",
+      "secret": "$SSO_DOCKER_RADIUS_SECRET"
+    }
+  }
+}
